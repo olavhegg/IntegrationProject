@@ -37,7 +37,7 @@ public class CommitController {
     public Commit create(@Valid @RequestBody Commit commit){
 
         Commit _commit = repostitory
-            .save(new Commit(commit.getTitle(), commit.getMessage(), commit.getAuthorEmail(), commit.getAuthoredDate()));
+            .save(new Commit(commit.getId(),commit.getTitle(),commit.getMessage(),commit.getAuthorName(), commit.getAuthorEmail(), commit.getAuthoredDate(), commit.getCommitterName(), commit.getCommitterEmail(), commit.getCommittedDate(), commit.getWebUrl()));
 
         return _commit;
     }

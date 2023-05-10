@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import aiss.gitminer.GitMinerClient;
 
 @RestController
-@RequestMapping("/apipath")
+@RequestMapping("/gitlab")
 public class GitLabMiner {
 
     @Autowired
@@ -34,7 +34,7 @@ public class GitLabMiner {
             // process data according to data model
             // send processed data to GitMiner microservice using GitMiner API client
             // return appropriate HTTP response
-            
+
             
             return new ResponseEntity<>("GitLab data mining completed successfully", HttpStatus.OK);
         } catch (Exception e) {

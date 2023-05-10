@@ -39,6 +39,34 @@ public class Project {
         issues = new ArrayList<>();
     }
 
+    public Project(String id, @NotEmpty(message = "The name of the project cannot be empty") String name,
+            @NotEmpty(message = "The URL of the project cannot be empty") String webUrl, List<Commit> commits) {
+        this.id = id;
+        this.name = name;
+        this.webUrl = webUrl;
+        this.commits = commits;
+    }
+
+    public Project(String id, @NotEmpty(message = "The name of the project cannot be empty") String name,
+            @NotEmpty(message = "The URL of the project cannot be empty") String webUrl, List<Commit> commits,
+            List<Issue> issues) {
+        this.id = id;
+        this.name = name;
+        this.webUrl = webUrl;
+        this.commits = commits;
+        this.issues = issues;
+    }
+
+
+    public Project(String id, @NotEmpty(message = "The name of the project cannot be empty") String name,
+            @NotEmpty(message = "The URL of the project cannot be empty") String webUrl) {
+        this.id = id;
+        this.name = name;
+        this.webUrl = webUrl;
+    }
+
+
+
     public String getId() {
         return id;
     }

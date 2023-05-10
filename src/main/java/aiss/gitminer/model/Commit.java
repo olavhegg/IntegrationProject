@@ -48,6 +48,30 @@ public class Commit {
             "")
     private String webUrl;
 
+
+    public Commit(){
+        
+    }
+    
+
+    public Commit(String id, String title, String message,
+            @NotEmpty(message = "Author name cannot be empty.") String authorName, String authorEmail,
+            @NotEmpty(message = "Author date cannot be empty.") String authoredDate,
+            @NotEmpty(message = "Committer name cannot be empty.") String committerName, String committerEmail,
+            @NotEmpty(message = "Committer date cannot be empty.") String committedDate,
+            @NotEmpty(message = "URL cannot be empty.") String webUrl) {
+        this.id = id;
+        this.title = title;
+        this.message = message;
+        this.authorName = authorName;
+        this.authorEmail = authorEmail;
+        this.authoredDate = authoredDate;
+        this.committerName = committerName;
+        this.committerEmail = committerEmail;
+        this.committedDate = committedDate;
+        this.webUrl = webUrl;
+    }
+
     public String getId() {
         return id;
     }
