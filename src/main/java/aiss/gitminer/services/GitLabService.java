@@ -3,6 +3,7 @@ package aiss.gitminer.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import aiss.gitminer.model.Commit;
+import aiss.gitminer.model.Issue;
 import aiss.gitminer.model.Project;
 
 import java.util.ArrayList;
@@ -50,6 +51,21 @@ public class GitLabService {
         }
 
         return commits;
+    }
+
+    public List<Issue> getAllIssuesFromGitLabProject(Long projectId) {
+        String url = GITLAB_API_BASE_URL + projectId + "/issues";
+        String response = restTemplate.getForObject(url, String.class);
+        List<Issue> issues = new ArrayList<>();
+
+        try {
+            Issue[] issueArray = objectMapper.readValue(response, Issue[].class);
+            issues = Arrays.asList(issueArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return issues;
     }
 
 

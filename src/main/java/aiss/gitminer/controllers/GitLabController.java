@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import aiss.gitminer.model.Commit;
+import aiss.gitminer.model.Issue;
 import aiss.gitminer.model.Project;
 import aiss.gitminer.repository.ProjectRepostitory;
 import aiss.gitminer.services.GitLabService;
@@ -42,6 +43,8 @@ public class GitLabController {
         Project project = gitLabService.getProjectById(id);
         List<Commit> commits = gitLabService.getCommitsById(id);
         project.setCommits(commits);
+        List<Issue> issues = gitLabService.getAllIssuesFromGitLabProject(id);
+        project.setIssues(issues);
         projectRepostitory.save(project);
         return project;
     }
