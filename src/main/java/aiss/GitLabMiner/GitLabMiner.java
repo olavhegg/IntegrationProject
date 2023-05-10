@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import aiss.gitminer.GitMinerClient;
 
@@ -33,6 +34,8 @@ public class GitLabMiner {
             // process data according to data model
             // send processed data to GitMiner microservice using GitMiner API client
             // return appropriate HTTP response
+            
+            
             return new ResponseEntity<>("GitLab data mining completed successfully", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to mine GitLab data: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -47,6 +50,12 @@ public class GitLabMiner {
         @RequestParam(defaultValue = "2") int maxPages) {
         
         try {
+            final String uri = "https://gitlab.com/api/v4/projects/"+id;
+
+            RestTemplate restTemplate = new RestTemplate();
+            String result = restTemplate.getForObject(uri, String.class);
+
+            System.out.println(result);
             // Read data from GitLab REST API using GitLab API client
             // process data according to data model
             // return the search results without sending them to GitMiner microservice

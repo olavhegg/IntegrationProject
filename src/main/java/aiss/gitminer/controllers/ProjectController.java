@@ -65,13 +65,13 @@ public class ProjectController {
     }
 
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Project create(@Valid @RequestBody Project project){
-        Project _project = repostitory
-            .save(new Project(project.getName(),project.getWeb_url()));
-        return _project;
-    }
+    // @ResponseStatus(HttpStatus.CREATED)
+    // @PostMapping
+    // public Project create(@Valid @RequestBody Project project){
+    //     Project _project = repostitory
+    //         .save(new Project(project.getName(),project.getWeb_url()));
+    //     return _project;
+    // }
 
     @GetMapping("/page1")
     public List<Project> pagination(){
