@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.Console;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.validation.Valid;
 
@@ -30,11 +31,34 @@ import javax.validation.Valid;
 @RequestMapping("/api/projects")
 public class ProjectController {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Autowired 
     ProjectRepostitory repostitory;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     public ProjectController(ProjectRepostitory repostitory) {
         this.repostitory = repostitory;
+    }
+
+
+    @PostMapping("/gitlab/{id}")
+    public void getGitLabProject(@PathVariable Long id){
+        String url = "http://localhost:8081/api/gitlab/projects"+id;
+        String response = restTemplate.getForObject(url, String.class);
+        Project project = null;
+
+        try{
+            //Project response = restTemplate.getForObject(url, Project.class);
+            project = objectMapper.readValue(response, Project.class);
+            repostitory.save(project);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     
@@ -85,7 +109,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
-    public List getResults(@RequestParam("numPage") int pages ){
+    public List<Project> getResults(@RequestParam("numPage") int pages ){
         return repostitory.findAll().subList(0, pages);
     }
 

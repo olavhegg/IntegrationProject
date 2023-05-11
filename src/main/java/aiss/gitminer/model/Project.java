@@ -23,7 +23,7 @@ public class Project {
 
     @JsonProperty("web_url")
     @NotEmpty(message = "The URL of the project cannot be empty")
-    public String webUrl;
+    public String web_url;
     @JsonProperty("commits")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "projectId")
@@ -43,7 +43,7 @@ public class Project {
             @NotEmpty(message = "The URL of the project cannot be empty") String webUrl, List<Commit> commits) {
         this.id = id;
         this.name = name;
-        this.webUrl = webUrl;
+        this.web_url = webUrl;
         this.commits = commits;
     }
 
@@ -52,7 +52,7 @@ public class Project {
             List<Issue> issues) {
         this.id = id;
         this.name = name;
-        this.webUrl = webUrl;
+        this.web_url = webUrl;
         this.commits = commits;
         this.issues = issues;
     }
@@ -62,7 +62,7 @@ public class Project {
             @NotEmpty(message = "The URL of the project cannot be empty") String webUrl) {
         this.id = id;
         this.name = name;
-        this.webUrl = webUrl;
+        this.web_url = webUrl;
     }
 
 
@@ -84,11 +84,11 @@ public class Project {
     }
 
     public String getWebUrl() {
-        return webUrl;
+        return web_url;
     }
 
     public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
+        this.web_url = webUrl;
     }
 
     public List<Commit> getCommits() {
